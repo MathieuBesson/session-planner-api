@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+
+  session-planner-postgres:
+    container_name: session-planner-postgres
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+
+  session-planner-adminer:
+    image: adminer
+    container_name: session-planner-adminer
+    restart: always
+    ports:
+      - 8081:8080
+
+  session-planner-api:
+    image: session-planner-api
+    container_name: session-planner-api
+    restart: always
+    build:
+      context: .
+      target: build
+    ports:
+      - ${PORT}:${PORT}
+      - 9229:9229
+    env_file:
+      - .env
+    volumes:
+      - ./:/home/node/app
+      - /home/node/app/node_modules
+    command: dumb-init node ace serve --watch
+    depends_on:
+      - session-planner-postgres
+
+volumes:
+  postgres_volume:
+
+
+
+
