@@ -15,7 +15,7 @@ export default class DatabaseSeeder extends BaseSeeder {
      */
     private async truncateDatabase() {
         const tables = [
-            'user_session',
+            'session_user',
             'sessions',
             'halls',
             'session_types',
@@ -23,7 +23,7 @@ export default class DatabaseSeeder extends BaseSeeder {
         ]
 
         for (const table of tables) {
-            await db.rawQuery(`TRUNCATE TABLE ${table} RESTART IDENTITY CASCADE`)
+            await db.rawQuery(`TRUNCATE TABLE "${table}" RESTART IDENTITY CASCADE`)
         }
     }
 
@@ -48,7 +48,7 @@ export default class DatabaseSeeder extends BaseSeeder {
         ])
 
         // User
-        await User.create({
+        const user = await User.create({
             externalId: faker.string.uuid(),
             firstName: faker.person.firstName(),
             lastName: faker.person.lastName(),
@@ -132,6 +132,7 @@ export default class DatabaseSeeder extends BaseSeeder {
             let session = await Session.create(sessionData.session);
             session.related("sessionType").associate(sessionData.relations.sessionType);
             session.related("hall").associate(sessionData.relations.hall);
+            session.related("users").attach([user.id]);
             session.save();
         }
     }

@@ -50,7 +50,7 @@ export default class extends BaseSchema {
       table.integer('status_line').nullable().defaultTo(StatusLine.ACTIVE)
     })
 
-    this.schema.createTable('user_session', (table) => {
+    this.schema.createTable('session_user', (table) => {
       table.increments('id').notNullable()
       table.integer('user_id').unsigned().references('users.id')
       table.integer('session_id').unsigned().references('sessions.id')
@@ -64,7 +64,7 @@ export default class extends BaseSchema {
   async down() {
     this.schema.dropTable('users')
     this.schema.dropTable('sessions')
-    this.schema.dropTable('user_session')
+    this.schema.dropTable('session_user')
     this.schema.dropTable('session_types')
     this.schema.dropTable('halls')
   }

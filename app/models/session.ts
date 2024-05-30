@@ -5,6 +5,9 @@ import SessionType from './session_type.js'
 import Hall from './hall.js'
 import { DateTime } from 'luxon'
 import { StatusLine } from '../enums/status_line.js'
+import { SessionStatus } from '../enums/session_status.js'
+import moment from 'moment'
+import { Exception } from '@adonisjs/core/exceptions'
 
 export default class Session extends BaseModel {
   @column({ isPrimary: true })
@@ -54,4 +57,31 @@ export default class Session extends BaseModel {
 
   @column()
   declare statusLine: StatusLine
+
+  public getStatus(): SessionStatus {
+
+    const sessionDate = moment(this.date);
+    const startRegistrationDate = moment(this.date).subtract(this.delayBeforeRegistration, 'd');
+    const today = moment();
+
+    switch (true) {
+      case this.cancelled === true:
+        return SessionStatus.CANCEL;
+
+      case this.users.length >= this.maxCapacity:
+        return SessionStatus.COMPLETE;
+
+      case today < startRegistrationDate:
+        return SessionStatus.FUTURE;
+
+      case startRegistrationDate <= today && today <= sessionDate:
+        return SessionStatus.OPEN;
+
+      case today > sessionDate:
+        return SessionStatus.FINISH;
+
+      default:
+        throw new Exception("Impossible de déterminer le status de la session")
+    }
+  }
 }
