@@ -38,4 +38,11 @@ export default class UsersController {
 
         return user;
     }
+
+    async getOne({ request }: HttpContext) {
+        return await User.query()
+            .where('id', request.param('user_id'))
+            .where('status_line', '=', StatusLine.ACTIVE)
+            .firstOrFail()
+    }
 }

@@ -23,6 +23,9 @@ export default class Session extends BaseModel {
   declare maxCapacity: number
 
   @column()
+  declare name: string
+
+  @column()
   declare note: string | null
 
   @column()
@@ -63,6 +66,8 @@ export default class Session extends BaseModel {
     const sessionDate = moment(this.date);
     const startRegistrationDate = moment(this.date).subtract(this.delayBeforeRegistration, 'd');
     const today = moment();
+
+    console.log(today, startRegistrationDate, this.delayBeforeRegistration)
 
     switch (true) {
       case this.cancelled === true:

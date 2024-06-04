@@ -37,7 +37,7 @@ export default class DatabaseSeeder extends BaseSeeder {
         // Session types
         await SessionType.createMany([
             { name: 'jeu libre' },
-            { name: 'entrainement PR/R2' },
+            { name: 'entrainement' },
             { name: 'championnat' },
         ])
 
@@ -53,7 +53,6 @@ export default class DatabaseSeeder extends BaseSeeder {
             firstName: faker.person.firstName(),
             lastName: faker.person.lastName(),
             email: faker.internet.email(),
-            password: faker.internet.password(),
             roleId: Roles.ADMIN
         })
 
@@ -71,7 +70,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                     startTime: 72_000,
                     endTime: 82_800,
                     maxCapacity: 28,
-                    note: 'Jeu libre (tous)',
+                    name: 'Jeu libre (tous)',
                     date: nextTuesday,
                     cancelled: false,
                     delayBeforeRegistration: 7
@@ -86,7 +85,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                     startTime: 72_000,
                     endTime: 82_800,
                     maxCapacity: 24,
-                    note: 'Jeu libre (loisirs)',
+                    name: 'Jeu libre (loisirs)',
                     date: nextTuesday,
                     cancelled: false,
                     delayBeforeRegistration: 7,
@@ -101,7 +100,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                     startTime: 72_000,
                     endTime: 82_800,
                     maxCapacity: 20,
-                    note: 'Entrainement PR/R2',
+                    name: 'Entrainement PR/R2',
                     date: nextSaturday,
                     cancelled: false,
                     delayBeforeRegistration: 7,
@@ -116,7 +115,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                     startTime: 72_000,
                     endTime: 82_800,
                     maxCapacity: 8,
-                    note: 'Championnat',
+                    name: 'Championnat',
                     date: nextTuesday,
                     cancelled: false,
                     delayBeforeRegistration: 0,

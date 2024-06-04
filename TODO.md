@@ -77,6 +77,28 @@ Vérif : ROLE ADMIN
         - Sur cette horaire (ou journée) dans cette salle : nombre places restantes => 0
         - Championnat : max_capacity <= hall.max_capacity - sessions.max_capacity + session.session_type.jeu_libre
 
+- Incription / connexion avec google, créer ou modifier un utilisateur depuis les données google
+- Ne plus pouvoir accèder à la page de connexion si on a un token valid (vérifier ce token sur la page de connexion sinon redirect sur la home)
+- Faire un boutton déconnexion sur la home
+- Vérifier comment interdire l'accès à une page du front gràce au token : requête au back surement sur une route spécial, vérifier aussi le rôle /connect-check/role
+- Créer un requeteur custom pour faire les requêtes à l'API
+- Faire les pages distincts 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Idées +

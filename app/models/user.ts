@@ -30,7 +30,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare email: string
 
   @column()
-  declare password: string
+  declare picture: string
 
   @column()
   declare roleId: number
