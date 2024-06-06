@@ -50,9 +50,10 @@ export default class DatabaseSeeder extends BaseSeeder {
         // User
         const user = await User.create({
             externalId: faker.string.uuid(),
-            firstName: faker.person.firstName(),
-            lastName: faker.person.lastName(),
-            email: faker.internet.email(),
+            firstName: "Mathieu",
+            lastName: "Besson",
+            email: "mathieu.besson@session-planner.fr",
+            password: "totototo",
             roleId: Roles.ADMIN
         })
 

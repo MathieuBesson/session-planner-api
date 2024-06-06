@@ -18,7 +18,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare id: number
 
   @column()
-  declare externalId: string
+  declare externalId: string | null
 
   @column()
   declare firstName: string | null
@@ -29,8 +29,11 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare email: string
 
+  @column({ serializeAs: null })
+  declare password: string
+
   @column()
-  declare picture: string
+  declare picture: string | null
 
   @column()
   declare roleId: number
@@ -47,5 +50,13 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare statusLine: StatusLine
 
-  static accessTokens = DbAccessTokensProvider.forModel(User)
+  static accessTokens = DbAccessTokensProvider.forModel(User,
+    {
+      expiresIn: '30 days',
+      prefix: 'oat_',
+      table: 'auth_access_tokens',
+      type: 'auth_token',
+      tokenSecretLength: 40,
+    }
+  )
 }
