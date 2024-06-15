@@ -27,6 +27,12 @@ export default class DatabaseSeeder extends BaseSeeder {
         }
     }
 
+    private getRandomElements(arr: User[], count: number) {
+
+        const shuffled = arr.sort(() => 0.5 - Math.random());
+        return shuffled.filter((_, index) => index < count);
+    }
+
     /**
      * Lancemnt du seeder
      */
@@ -47,15 +53,52 @@ export default class DatabaseSeeder extends BaseSeeder {
             { name: 'Salle de la Chalotais', maxCapacity: 24 },
         ])
 
-        // User
-        const user = await User.create({
-            externalId: faker.string.uuid(),
-            firstName: "Mathieu",
-            lastName: "Besson",
-            email: "mathieu.besson@session-planner.fr",
-            password: "totototo",
-            roleId: Roles.ADMIN
-        })
+        // Users
+        const userList = await User.createMany(
+
+            [
+                {
+                    externalId: faker.string.uuid(),
+                    firstName: "Mathieu",
+                    lastName: "Besson",
+                    email: "mathieu.besson@session-planner.fr",
+                    password: "motdepasse",
+                    roleId: Roles.ADMIN
+                },
+                {
+                    externalId: faker.string.uuid(),
+                    firstName: "Louann",
+                    lastName: "Petit",
+                    email: "louann.petit@session-planner.fr",
+                    password: "motdepasse",
+                    roleId: Roles.ADMIN
+                },
+                {
+                    externalId: faker.string.uuid(),
+                    firstName: "Victor",
+                    lastName: "Durand",
+                    email: "victor.durant@session-planner.fr",
+                    password: "motdepasse",
+                    roleId: Roles.ADMIN
+                },
+                {
+                    externalId: faker.string.uuid(),
+                    firstName: "Julien",
+                    lastName: "Moreau",
+                    email: "julien.moreau@session-planner.fr",
+                    password: "motdepasse",
+                    roleId: Roles.ADMIN
+                },
+                {
+                    externalId: faker.string.uuid(),
+                    firstName: "Florent",
+                    lastName: "Richard",
+                    email: "florent.richard@session-planner.fr",
+                    password: "motdepasse",
+                    roleId: Roles.ADMIN
+                }
+            ]
+        )
 
         // Sessions
         const sessionTypes = await SessionType.all()
@@ -101,7 +144,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                     startTime: 72_000,
                     endTime: 82_800,
                     maxCapacity: 20,
-                    name: 'Entrainement PR/R2',
+                    name: 'Entrainement régional',
                     date: nextSaturday,
                     cancelled: false,
                     delayBeforeRegistration: 7,
@@ -132,7 +175,9 @@ export default class DatabaseSeeder extends BaseSeeder {
             let session = await Session.create(sessionData.session);
             session.related("sessionType").associate(sessionData.relations.sessionType);
             session.related("hall").associate(sessionData.relations.hall);
-            session.related("users").attach([user.id]);
+            for (const user of this.getRandomElements(userList, 4)) {
+                session.related("users").attach([user.id]);
+            }
             session.save();
         }
     }

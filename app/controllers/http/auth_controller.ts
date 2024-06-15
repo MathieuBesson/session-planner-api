@@ -1,5 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
+import env from '#start/env'
 
 export default class AuthController {
   async register({ request, response }: HttpContext) {
@@ -9,6 +10,7 @@ export default class AuthController {
       'lastName',
       'email',
       'password',
+      'tokenClub',
     ]);
 
     const userAlreadyInDatabase = await User.query().where('email', userPayload.email).first()
@@ -16,6 +18,12 @@ export default class AuthController {
     if (userAlreadyInDatabase) {
       return response.badRequest({ error: `Impossible de créer un compte avec cette addresse mail` })
     }
+
+    if(env.get('TOKEN_CLUB') !== userPayload.tokenClub){
+      return response.badRequest({ error: `Token club invalide` })
+    }
+
+    delete userPayload.tokenClub
 
     const user = await User.create(userPayload)
     user.refresh()
