@@ -109,7 +109,7 @@ export default class SessionsController {
 
         await session.merge({ statusLine: StatusLine.SOFT_DELETE }).save();
 
-        return {};
+        return { "success": true };
     }
 
     async validateSessionData(
@@ -193,40 +193,40 @@ export default class SessionsController {
 
     async update({ request, response }: HttpContext) {
         const sessionId = request.param('session_id');
-      
+
         // Récupérer la session à mettre à jour
         const sessionToUpdate = await Session.findBy('id', sessionId);
         if (!sessionToUpdate) {
-          return response.badRequest({ error: 'La session spécifiée n\'existe pas' });
+            return response.badRequest({ error: 'La session spécifiée n\'existe pas' });
         }
-      
+
         const sessionData = request.only([
-          'hallId',
-          'sessionTypeId',
-          'delayBeforeRegistration',
-          'startTime',
-          'endTime',
-          'maxCapacity',
-          'name',
-          'note',
-          'cancelled',
-          'date',
+            'hallId',
+            'sessionTypeId',
+            'delayBeforeRegistration',
+            'startTime',
+            'endTime',
+            'maxCapacity',
+            'name',
+            'note',
+            'cancelled',
+            'date',
         ]);
         console.log(request.all())
         console.log(sessionId)
-      
+
         // Vérifier les contraintes de la session en utilisant la fonction séparée
         const validationResult = await this.validateSessionData({ request, response }, sessionData, sessionId);
         if (validationResult !== true) {
             return validationResult;
         }
-      
+
         // Mettre à jour la session
         sessionToUpdate.merge(sessionData);
         await sessionToUpdate.save();
-      
+
         return response.ok(sessionToUpdate);
-      }
-      
+    }
+
 
 }

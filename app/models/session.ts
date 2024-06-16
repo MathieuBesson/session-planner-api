@@ -63,17 +63,17 @@ export default class Session extends BaseModel {
 
   public getStatus(): SessionStatus {
 
-    const sessionDate = moment(this.date);
-    const startRegistrationDate = moment(this.date).subtract(this.delayBeforeRegistration, 'd');
-    const today = moment();
+    const dateFormated = ('toISO' in this.date) ? this.date.toISO() : this.date;
 
-    console.log(today, startRegistrationDate, this.delayBeforeRegistration)
+    const sessionDate = moment(dateFormated);
+    const startRegistrationDate = moment(dateFormated).subtract(this.delayBeforeRegistration, 'd');
+    const today = moment();
 
     switch (true) {
       case this.cancelled === true:
         return SessionStatus.CANCEL;
 
-      case this.users.length >= this.maxCapacity:
+      case this.users && this.users.length >= this.maxCapacity:
         return SessionStatus.COMPLETE;
 
       case today < startRegistrationDate:

@@ -7,6 +7,7 @@ import { faker } from '@faker-js/faker';
 import Session from "#models/session"
 import { DateTime } from "luxon"
 import db from '@adonisjs/lucid/services/db'
+import { SessionStatus } from "../../app/enums/session_status.js"
 
 export default class DatabaseSeeder extends BaseSeeder {
 
@@ -71,7 +72,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                     lastName: "Petit",
                     email: "louann.petit@session-planner.fr",
                     password: "motdepasse",
-                    roleId: Roles.ADMIN
+                    roleId: Roles.MEMBER
                 },
                 {
                     externalId: faker.string.uuid(),
@@ -79,7 +80,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                     lastName: "Durand",
                     email: "victor.durant@session-planner.fr",
                     password: "motdepasse",
-                    roleId: Roles.ADMIN
+                    roleId: Roles.MEMBER
                 },
                 {
                     externalId: faker.string.uuid(),
@@ -87,7 +88,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                     lastName: "Moreau",
                     email: "julien.moreau@session-planner.fr",
                     password: "motdepasse",
-                    roleId: Roles.ADMIN
+                    roleId: Roles.MEMBER
                 },
                 {
                     externalId: faker.string.uuid(),
@@ -95,7 +96,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                     lastName: "Richard",
                     email: "florent.richard@session-planner.fr",
                     password: "motdepasse",
-                    roleId: Roles.ADMIN
+                    roleId: Roles.MEMBER
                 }
             ]
         )
@@ -105,8 +106,8 @@ export default class DatabaseSeeder extends BaseSeeder {
         const halls = await Hall.all()
 
         const now = DateTime.local();
-        const nextTuesday = now.plus({ days: (7 + now.weekday - 2) % 7 });
-        const nextSaturday = now.plus({ days: (7 + now.weekday - 4) % 7 });
+        const nextTuesday = DateTime.local().plus({ days: (7 + now.weekday - 2) % 7 });
+        const nextSaturday = DateTime.local().plus({ days: (7 + now.weekday - 4) % 7 });
 
         const sessionDataList = [
             {
@@ -120,8 +121,8 @@ export default class DatabaseSeeder extends BaseSeeder {
                     delayBeforeRegistration: 7
                 },
                 relations: {
-                    sessionType: sessionTypes[0],
-                    hall: halls[0],
+                    sessionType: sessionTypes[2],
+                    hall: halls[1],
                 }
             },
             {
@@ -135,8 +136,8 @@ export default class DatabaseSeeder extends BaseSeeder {
                     delayBeforeRegistration: 7,
                 },
                 relations: {
-                    sessionType: sessionTypes[0],
-                    hall: halls[1],
+                    sessionType: sessionTypes[2],
+                    hall: halls[0],
                 }
             },
             {
@@ -151,7 +152,7 @@ export default class DatabaseSeeder extends BaseSeeder {
                 },
                 relations: {
                     sessionType: sessionTypes[1],
-                    hall: halls[0],
+                    hall: halls[1],
                 }
             },
             {
@@ -165,8 +166,8 @@ export default class DatabaseSeeder extends BaseSeeder {
                     delayBeforeRegistration: 0,
                 },
                 relations: {
-                    sessionType: sessionTypes[2],
-                    hall: halls[0],
+                    sessionType: sessionTypes[0],
+                    hall: halls[1],
                 }
             },
         ]
@@ -176,7 +177,10 @@ export default class DatabaseSeeder extends BaseSeeder {
             session.related("sessionType").associate(sessionData.relations.sessionType);
             session.related("hall").associate(sessionData.relations.hall);
             for (const user of this.getRandomElements(userList, 4)) {
-                session.related("users").attach([user.id]);
+                console.log(session.getStatus())
+                if (session.getStatus() === SessionStatus.OPEN) {
+                    session.related("users").attach([user.id]);
+                }
             }
             session.save();
         }

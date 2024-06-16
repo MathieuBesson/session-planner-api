@@ -21,7 +21,7 @@ export default class UsersController {
             query.limit(parseInt(limit));
         }
 
-        return await query.exec();
+        return await query.orderBy('last_name').exec();
     }
 
     async patchOne({ request }: HttpContext) {
