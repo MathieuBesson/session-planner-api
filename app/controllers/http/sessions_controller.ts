@@ -118,7 +118,6 @@ export default class SessionsController {
         sessionId = null
     ) {
         // Vérifier que la capacité max demandée n'est pas supérieure à la limite max de la salle associée
-        console.log(sessionData)
         const hall = await Hall.findBy('id', sessionData.hallId);
         if (!hall) {
             return response.badRequest({ error: 'La salle spécifiée n\'existe pas' });
@@ -131,8 +130,17 @@ export default class SessionsController {
         // (Notez que nous avons ajouté une condition pour ignorer la session actuelle dans le cas de la fonction update)
         const query = Session.query()
 
+        const dateMorning = moment(sessionData.date).startOf('day')
+        const dateEvening = moment(sessionData.date).endOf('day')
+
         query.where('hall_id', sessionData.hallId)
-            .where('date', sessionData.date)
+            .where((query) => {
+                query.where((subQuery) => {
+                    subQuery
+                        .where('date', '>=', dateMorning.toISOString())
+                        .where('date', '<=', dateEvening.toISOString())
+                })
+            })
             .where((query) => {
                 query.where((subQuery) => {
                     subQuery
@@ -151,8 +159,6 @@ export default class SessionsController {
         }
 
         const overlappingSessions = await query.exec()
-
-        console.log()
 
         let totalCapacity = 0;
         for (const session of overlappingSessions) {
@@ -212,8 +218,6 @@ export default class SessionsController {
             'cancelled',
             'date',
         ]);
-        console.log(request.all())
-        console.log(sessionId)
 
         // Vérifier les contraintes de la session en utilisant la fonction séparée
         const validationResult = await this.validateSessionData({ request, response }, sessionData, sessionId);
