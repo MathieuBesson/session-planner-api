@@ -51,8 +51,8 @@ Pour démarrer les conteneurs, exécutez la commande suivante :
 docker-compose up
 ```
 
-- L'API sera accessible à l'adresse : `http://localhost:8080`
-- L'outil de visualisation de la base de données : `http://localhost:8081`
+- L'API sera accessible à l'adresse : [http://localhost:8080](http://localhost:8080)
+- L'outil de visualisation de la base de données : [http://localhost:8081](http://localhost:8081)
 
 ## Frontend
 
