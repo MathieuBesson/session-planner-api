@@ -1,10 +1,6 @@
 
 # Session Planner API Backend (Adonis JS)
 
-![AdonisJS](https://img.shields.io/badge/adonisjs-v5-blue?logo=adonisjs&logoColor=white&labelColor=5F4BFF&color=white)
-![node.js](https://img.shields.io/badge/node.js-v20-339933?logo=nodedotjs&logoColor=white&labelColor=339933&color=white)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?logo=mit&logoColor=white&labelColor=yellow&color=white)
-
 ## Description
 
 **Session Planner** est une solution sur mesure développée pour l'Union Sportive Vernoise Badminton afin de faciliter l'inscription aux sessions de jeu. Ce dépôt contient l'API de la solution, elle a été développée avec le framework **Adonis JS** et sert de source de donnée pour l'application web.
