@@ -7,7 +7,7 @@
 
 ## Description
 
-L'API **Session Planner** est une solution sur mesure développée pour l'Union Sportive Vernoise Badminton afin de faciliter l'inscription aux sessions de jeu. Cette API a été développée avec le framework **Adonis JS** et sert de base pour l'application web.
+**Session Planner** est une solution sur mesure développée pour l'Union Sportive Vernoise Badminton afin de faciliter l'inscription aux sessions de jeu. Ce dépôt contient l'API de la solution, elle a été développée avec le framework **Adonis JS** et sert de source de donnée pour l'application web.
 
 ## Prérequis
 
