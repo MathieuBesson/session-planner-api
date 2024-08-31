@@ -6,10 +6,10 @@
 
 ## Prerequisites
 
-![docker](https://img.shields.io/badge/docker--v27-2496ED?logo=docker&logoColor=white&labelColor=2496ED&color=white)
-![docker-compose](https://img.shields.io/badge/docker--compose-2496ED?logo=docker&logoColor=white&labelColor=2496ED)
-![node.js](https://img.shields.io/badge/node.js-339933?logo=nodedotjs&logoColor=white&labelColor=339933)
-![npm](https://img.shields.io/badge/npm-CB3837?logo=npm&logoColor=white&labelColor=CB3837)
+![docker](https://img.shields.io/badge/docker-v27-2496ED?logo=docker&logoColor=white&labelColor=2496ED&color=white)
+![docker-compose](https://img.shields.io/badge/docker--compose-v1-2496ED?logo=docker&logoColor=white&labelColor=2496ED&color=white)
+![node.js](https://img.shields.io/badge/node.js-v20-339933?logo=nodedotjs&logoColor=white&labelColor=339933&color=white)
+![npm](https://img.shields.io/badge/npm-v10-CB3837?logo=npm&logoColor=white&labelColor=CB3837&color=white)
 
 ## Installation
 
