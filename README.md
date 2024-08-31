@@ -1,11 +1,9 @@
 
-# Session Planner API Backend (Adonis JS) 
-
+# Session Planner API Backend (Adonis JS)
 
 ![AdonisJS](https://img.shields.io/badge/adonisjs-v5-blue?logo=adonisjs&logoColor=white&labelColor=5F4BFF&color=white)
-![Docker](https://img.shields.io/badge/docker-enabled-blue?logo=docker&logoColor=white&labelColor=2496ED&color=white)
+![node.js](https://img.shields.io/badge/node.js-v20-339933?logo=nodedotjs&logoColor=white&labelColor=339933&color=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?logo=mit&logoColor=white&labelColor=yellow&color=white)
-
 
 ## Description
 
