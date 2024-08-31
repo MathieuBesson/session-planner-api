@@ -32,6 +32,14 @@ L'API sera accessible à l'adresse `http://localhost:8080` et l'outil de visuali
 
 Le frontend de Session Planner est une application web à l'aide de Next.js disponible sur ce dépot : [session-planner-pwa](https://github.com/MathieuBesson/session-planner-pwa).
 
+## TODO 
+
+- Validation des types de données reçus par l'API avec des schémas et un outil comme [zod](https://zod.dev/) ou [vine.js](https://vinejs.dev)
+- Ajouter de la JS doc sur les fonctions
+- Ajouter des tests unitaires
+- Ajouter une documentation Swagger de l'API
+- Corriger les différents TODO 
+
 ## Licence
 
 Ce projet est sous licence MIT. Consultez le fichier `LICENSE` pour plus de détails.
