@@ -62,4 +62,4 @@ The frontend of **Session Planner** is a web application built with **Next.js**.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more details.
+This project is licensed under the GPL License. See the [LICENSE](./LICENSE) file for more details.
